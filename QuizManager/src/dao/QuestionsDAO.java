@@ -7,6 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.TreeSet;
+
+import com.sun.source.util.TreeScanner;
 
 import datamodel.Questions;
 
@@ -38,7 +41,6 @@ public class QuestionsDAO {
 		}
 
 		ret = prepareStatement.executeUpdate();
-		System.out.println("Status of Update :" + ret);
 		connection.close();
 		
 		return ret;
@@ -103,7 +105,6 @@ public class QuestionsDAO {
 			prepareStatement.setString(searchFields, topic);
 		}
 
-		System.out.println("The query is:: " + prepareStatement.toString());
 		ResultSet results = prepareStatement.executeQuery();
 		while (results.next()) {
 			Questions q = new Questions();
@@ -227,9 +228,8 @@ public class QuestionsDAO {
 			prepareStatement.setString(updateFields, question.getTopic());
 			updateFields--;
 		}
-		System.out.println("The query is:: " + prepareStatement.toString());	
+
 		ret = prepareStatement.executeUpdate();
-		System.out.println("Status of return: "+ ret);
 		
 		connection.close();
 		return ret;
@@ -246,14 +246,30 @@ public class QuestionsDAO {
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
 		prepareStatement.setInt(1, id);
 
-		System.out.println("The query is:: " + prepareStatement.toString());
 		ret = prepareStatement.executeUpdate();
-		System.out.println("Status of return value: "+ ret);
 		
 		connection.close();
 		return ret;
 	}
 
+	public TreeSet<String> getTopics() throws SQLException {
+		TreeSet <String> topics = new TreeSet<>();
+		Connection connection;
+		String query;
+		
+		connection = DriverManager.getConnection(connectionPath, connectionUser, connectionPass);
+		query = "select * from \"QUESTIONS\"";
+
+		PreparedStatement prepareStatement = connection.prepareStatement(query);
+
+		ResultSet results = prepareStatement.executeQuery();
+		while (results.next()) {
+			topics.add(results.getString("topic"));
+		}
+		
+		connection.close();
+		return topics;
+	}
 	public String getConnectionPath() {
 		return connectionPath;
 	}

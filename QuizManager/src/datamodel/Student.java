@@ -1,5 +1,7 @@
 package datamodel;
 
+import java.util.ArrayList;
+
 public class Student {
 	private String username;
 	private String password;
@@ -8,6 +10,7 @@ public class Student {
 	private String sex;
 	private String address;
 	private int id;
+	private Quiz quiz;
 
 	@Override
 	public String toString() {
@@ -56,4 +59,11 @@ public class Student {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public Quiz getQuiz() {
+		return quiz;
+	}
+	public void setQuiz(Quiz quiz) {
+		this.quiz = quiz;
+	}
+
 }

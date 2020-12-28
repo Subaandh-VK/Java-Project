@@ -3,11 +3,15 @@ package launcher;
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.TreeSet;
 
 import dao.QuestionsDAO;
 import dao.StudentDAO;
+import datamodel.Quiz;
+import datamodel.Student;
 import services.AuthenticationService;
 import services.QuestionServices;
+import services.QuizServices;
 import services.StudentServices;
 
 public class Launcher {
@@ -44,6 +48,8 @@ public class Launcher {
 			}
 
 			AuthenticationService auth = new AuthenticationService();
+			
+			// Authentication module
 			if (!auth.authenticate(username, password, user)) {
 				System.out.println("Invalid credentials");
 				continue;
@@ -94,12 +100,29 @@ public class Launcher {
 					continue;
 				}
 			} else {
+				Student student = StudentServices.getStudentDetails(sdao, username);
 
+
+				System.out.println("******Welcome "+student.getName()+"*********");
+				
+				TreeSet<String> topics = QuizServices.getTopics(qdao);
+				System.out.println("* Availabe Topics *");
+				for (String topic : topics)
+					System.out.println(topic);
+				
+				String usertopic = QuizServices.checkTopic(topics);
+				if (usertopic == null) {
+					System.out.println("Invalid Topic");
+					continue;
+				}
+				
+				Quiz quiz = QuizServices.buildQuiz(qdao, usertopic);
+
+				student.setQuiz(quiz);
+				QuizServices.startQuiz(student);
+				System.out.println("Quiz Ended Your Score is: "+student.getQuiz().getScore());
+					
 			}
-
-			// Intialize Loggers for debugging
-//			IamLog log = new IamLog(Launcher.class.getName());
-//			log.debug("Intialized Logging Successfully");
 		}
 		in.close();
 	}

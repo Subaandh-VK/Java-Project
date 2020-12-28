@@ -77,6 +77,13 @@ public class StudentServices {
 			System.out.println(s.toString());
 		}
 	}
+	
+	public static Student getStudentDetails(StudentDAO sdao, String username) throws SQLException {
+		
+		ArrayList<Student> student = sdao.search(username, null, 0);
+		
+		return student.remove(0);
+	}
 
 	public static void updateStudent(StudentDAO sdao) throws SQLException {
 		in = new Scanner(System.in);

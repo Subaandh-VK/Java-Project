@@ -5,6 +5,10 @@ import java.sql.SQLException;
 import dao.StudentDAO;
 
 public class AuthenticationService {
+	
+	private static final String ADMIN_USER = "admin";
+	private static final String ADMIN_PWD = "admin";
+
 	public boolean authenticate(String username, String password, String user) throws SQLException {
 		
 		if (user.equals("STUDENT")) {
@@ -12,7 +16,7 @@ public class AuthenticationService {
 			if (!sdao.authenticationSearch(username, password))
 				return false;
 		} else if (user.equals("ADMIN")) {
-			if (!(username.equals("admin") && password.equals("admin")))
+			if (!(username.equals(ADMIN_USER) && password.equals(ADMIN_PWD)))
 				return false;
 		}
 		

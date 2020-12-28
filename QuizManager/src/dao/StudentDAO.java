@@ -31,7 +31,6 @@ public class StudentDAO {
 		prepareStatement.setString(6, student.getAddress());
 
 		ret = prepareStatement.executeUpdate();
-		System.out.println("Status of create: " + ret);
 
 		connection.close();
 		return ret;
@@ -121,7 +120,6 @@ public class StudentDAO {
 			String sex = results.getString("sex");
 			String address = results.getString("address");
 
-			System.out.println("Student name : " + name + age + sex + address);
 			found = true;
 		}
 
@@ -147,7 +145,6 @@ public class StudentDAO {
 		prepareStatement.setInt(7, student.getId());
 
 		ret = prepareStatement.executeUpdate();
-		System.out.println("Status of update" + ret);
 
 		connection.close();
 		return ret;
@@ -166,7 +163,6 @@ public class StudentDAO {
 		prepareStatement.setInt(1, student.getId());
 
 		ret = prepareStatement.executeUpdate();
-		System.out.println("Status of update: " + ret);
 
 		connection.close();
 		return ret;
