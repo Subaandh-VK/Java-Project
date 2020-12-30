@@ -1,5 +1,6 @@
 package launcher;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,6 +10,8 @@ import dao.QuestionsDAO;
 import dao.StudentDAO;
 import datamodel.Quiz;
 import datamodel.Student;
+import logging.FileOperations;
+import logging.IamLog;
 import services.AuthenticationService;
 import services.QuestionServices;
 import services.QuizServices;
@@ -19,12 +22,31 @@ public class Launcher {
 	public static void main(String[] args) throws SQLException {
 		Scanner in = new Scanner(System.in);
 
+		QuestionsDAO qdao = new QuestionsDAO();
+		StudentDAO sdao = new StudentDAO();
+		
+		try {
+			if (!FileOperations.readConfig()) {
+				System.out.println("Please give details in the config.properties file");
+				System.out.println("Give proper values for postgrespath, postgresuser ,postgrespass");
+				System.exit(0);
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("Database Path and Credentials: "+ qdao.getConnectionPath()+" "+ qdao.getConnectionUser()+
+				" "+qdao.getConnectionPass());
+		System.out.println("Result Writepath: " + FileOperations.getWritepath());
+		
+		
 		while (true) {
-			System.out.println("Welcome to Quiz Manager");
-			System.out.println("Login as Student PRESS 1 \nLogin as Admin PRESS 2 \nExit PRESS 3 ");
+			System.out.println("\n\n**********Welcome to Quiz Manager************");
+			System.out.println("PRESS 1.To Login as Student \n2.To Login as Admin \n3.To Exit");
+
 
 			int choice = 0;
-			String username, password, user;
+			String username = null, password = null, user = null;
 			try {
 				choice = in.nextInt();
 				in.nextLine();
@@ -54,9 +76,6 @@ public class Launcher {
 				System.out.println("Invalid credentials");
 				continue;
 			}
-
-			QuestionsDAO qdao = new QuestionsDAO();
-			StudentDAO sdao = new StudentDAO();
 
 			if (user.equals("ADMIN")) {
 				System.out.println("PRESS \n1.To perform CRUD operations on Questions \n2.To perform CRUD operations on Student details");
@@ -95,18 +114,15 @@ public class Launcher {
 							StudentServices.deleteStudent(sdao);
 						break;
 					}
-				} else {
-					System.out.println("Invalid choice");
-					continue;
 				}
 			} else {
 				Student student = StudentServices.getStudentDetails(sdao, username);
-
+				IamLog log = new IamLog("");
 
 				System.out.println("******Welcome "+student.getName()+"*********");
 				
 				TreeSet<String> topics = QuizServices.getTopics(qdao);
-				System.out.println("* Availabe Topics *");
+				System.out.println("** Availabe Topics **");
 				for (String topic : topics)
 					System.out.println(topic);
 				
@@ -116,14 +132,15 @@ public class Launcher {
 					continue;
 				}
 				
-				Quiz quiz = QuizServices.buildQuiz(qdao, usertopic);
+				int difficulty = QuizServices.checkDifficulty();
+				Quiz quiz = QuizServices.buildQuiz(qdao, usertopic, difficulty);
 
 				student.setQuiz(quiz);
-				QuizServices.startQuiz(student);
-				System.out.println("Quiz Ended Your Score is: "+student.getQuiz().getScore());
-					
+				QuizServices.startQuiz(student, log);
+				log.save("Quiz Ended Your Score is: "+student.getQuiz().getScore());
 			}
 		}
 		in.close();
 	}
 }
+	

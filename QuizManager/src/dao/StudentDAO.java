@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import datamodel.Student;
 
 public class StudentDAO {
-	public String connectionPath = "jdbc:postgresql://localhost:5432/Java-quiz";
-	public String connectionUsername = "postgres";
-	public String connectionPassword = "123";
+	public static String connectionPath;
+	public static String connectionUsername;
+	public static String connectionPassword;
 
 	public int create(Student student) throws SQLException {
 		Connection connection;
@@ -155,7 +155,7 @@ public class StudentDAO {
 		String query;
 		int ret = 0;
 
-		connection = DriverManager.getConnection(connectionPath, connectionUsername, connectionPassword);
+		connection = DriverManager.getConnection(this.connectionPath, this.connectionUsername, this.connectionPassword);
 		query = "DELETE FROM public.\"STUDENT\" WHERE id = ?";
 
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
@@ -166,5 +166,28 @@ public class StudentDAO {
 
 		connection.close();
 		return ret;
+	}
+	public static String getConnectionPath() {
+		return connectionPath;
+	}
+
+	public static void setConnectionPath(String connectionPath) {
+		StudentDAO.connectionPath = connectionPath;
+	}
+
+	public static String getConnectionUsername() {
+		return connectionUsername;
+	}
+
+	public static void setConnectionUsername(String connectionUsername) {
+		StudentDAO.connectionUsername = connectionUsername;
+	}
+
+	public static String getConnectionPassword() {
+		return connectionPassword;
+	}
+
+	public static void setConnectionPassword(String connectionPassword) {
+		StudentDAO.connectionPassword = connectionPassword;
 	}
 }

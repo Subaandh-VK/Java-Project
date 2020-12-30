@@ -9,14 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-import com.sun.source.util.TreeScanner;
 
 import datamodel.Questions;
 
 public class QuestionsDAO {
-	public String connectionPath = "jdbc:postgresql://localhost:5432/Java-quiz";
-	public String connectionUser = "postgres";
-	public String connectionPass = "123";
+	public static String connectionPath;
+	public static String connectionUser;
+	public static String connectionPass;
 
 	public int create(Questions question) throws SQLException {
 		Connection connection;
@@ -53,7 +52,6 @@ public class QuestionsDAO {
 		int searchFields = 0;
 
 		connection = DriverManager.getConnection(connectionPath, connectionUser, connectionPass);
-		System.out.println(connection.getSchema());
 
 		query = "select * from \"QUESTIONS\""; // topic = ? and difficulty = ?
 
@@ -214,17 +212,14 @@ public class QuestionsDAO {
 		}
 
 		if (question.getType() != null) {
-			System.out.println("1");
 			prepareStatement.setString(updateFields, question.getType());
 			updateFields--;
 		}
 		if (question.getDifficulty() != 0) {
-			System.out.println("2");
 			prepareStatement.setInt(updateFields, question.getDifficulty());
 			updateFields--;
 		}
 		if (question.getTopic() != null) {
-			System.out.println("3" + updateFields);
 			prepareStatement.setString(updateFields, question.getTopic());
 			updateFields--;
 		}
@@ -270,28 +265,29 @@ public class QuestionsDAO {
 		connection.close();
 		return topics;
 	}
-	public String getConnectionPath() {
+
+	public static String getConnectionPath() {
 		return connectionPath;
 	}
 
-	public void setConnectionPath(String connectionPath) {
-		this.connectionPath = connectionPath;
+	public static void setConnectionPath(String connectionPath) {
+		QuestionsDAO.connectionPath = connectionPath;
 	}
 
-	public String getConnectionUser() {
+	public static String getConnectionUser() {
 		return connectionUser;
 	}
 
-	public void setConnectionUser(String connectionUser) {
-		this.connectionUser = connectionUser;
+	public static void setConnectionUser(String connectionUser) {
+		QuestionsDAO.connectionUser = connectionUser;
 	}
 
-	public String getConnectionPass() {
+	public static String getConnectionPass() {
 		return connectionPass;
 	}
 
-	public void setConnectionPass(String connectionPass) {
-		this.connectionPass = connectionPass;
+	public static void setConnectionPass(String connectionPass) {
+		QuestionsDAO.connectionPass = connectionPass;
 	}
 
 }

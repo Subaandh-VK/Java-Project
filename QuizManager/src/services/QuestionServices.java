@@ -25,15 +25,20 @@ public class QuestionServices {
 		in.nextLine();
 		System.out.println("Enter answer: ");
 		String answer = in.nextLine();
-		System.out.println("Enter 3 choices only");
-		String[] choices = { in.nextLine(), in.nextLine(), in.nextLine() };
+		
+		if (type.equalsIgnoreCase("MCQ")) {
+			System.out.println("Enter 4 choices only");
+			String[] choices = { in.nextLine(), in.nextLine(), in.nextLine(),in.nextLine() };
+			question.setChoices(choices);
+		} else {
+			question.setChoices(null);
+		}
 
 		question.setQuestions(qn);
 		question.setDifficulty(difficulty);
 		question.setTopic(topic);
 		question.setType(type);
 		question.setAnswers(answer);
-		question.setChoices(choices);
 		
 		if (qdao.create(question) == 1)
 			System.out.println("CREATE Successful");

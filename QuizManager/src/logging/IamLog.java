@@ -1,5 +1,6 @@
 package logging;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,10 +13,22 @@ public class IamLog {
 		this.setLoggingEntity(loggingEntity);
 	}
 
-	private void log(String message, String level){		
-		String nowAsString = now.format(dateTimeFormatter);
-		String writeMsg = this.loggingEntity + " " + nowAsString + " " + message;
+	private void log(String message, String level){	
+		String writeMsg = "";
+		if (level != null) {
+			String nowAsString = now.format(dateTimeFormatter);
+			writeMsg = this.loggingEntity + " " + nowAsString + " " + message;
+		} else {
+			writeMsg = message;
+		}
+
 		System.out.println(writeMsg); 
+		try {
+			FileOperations.write(writeMsg);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void info(String message) {
@@ -33,6 +46,9 @@ public class IamLog {
 		log(message, "DEBUG");
 	}
 
+	public void save(String message) {
+		log(message, null);
+	}
 	public String getLoggingEntity() {
 		return loggingEntity;
 	}

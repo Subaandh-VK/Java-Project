@@ -18,6 +18,8 @@ public class AuthenticationService {
 		} else if (user.equals("ADMIN")) {
 			if (!(username.equals(ADMIN_USER) && password.equals(ADMIN_PWD)))
 				return false;
+		} else {
+			return false;
 		}
 		
 		System.out.println("Successfully authenticated");
