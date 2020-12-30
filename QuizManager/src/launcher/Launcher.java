@@ -35,8 +35,8 @@ public class Launcher {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println("Database Path and Credentials: "+ qdao.getConnectionPath()+" "+ qdao.getConnectionUser()+
-				" "+qdao.getConnectionPass());
+		System.out.println("Database Path and Credentials: "+ QuestionsDAO.getConnectionPath()+" "+ QuestionsDAO.getConnectionUser()+
+				" "+QuestionsDAO.getConnectionPass());
 		System.out.println("Result Writepath: " + FileOperations.getWritepath());
 		
 		
