@@ -1,0 +1,13 @@
+--module-path
+"C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib"
+--add-modules
+javafx.controls,javafx.fxml
+-Dfile.encoding=Cp1252
+-p
+"C:\\Users\\Subaandh\\git\\Java-Final_Project\\QuizManager\\lib\\postgresql-42.2.18.jar;C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib\\javafx.base.jar;C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib\\javafx.controls.jar;C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib\\javafx.fxml.jar;C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib\\javafx.graphics.jar;C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib\\javafx.media.jar;C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib\\javafx.swing.jar;C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib\\javafx.web.jar;C:\\Users\\Subaandh\\Downloads\\openjfx-11.0.2_windows-x64_bin-sdk\\javafx-sdk-11.0.2\\lib\\javafx-swt.jar"
+-classpath
+"C:\\Users\\Subaandh\\git\\Java-Final_Project\\QuizManager\\bin"
+-XX:+ShowCodeDetailsInExceptionMessages
+--add-modules
+ALL-DEFAULT
+GuiLauncher.InitializeGUI
