@@ -17,6 +17,11 @@ public class FileOperations {
 	private static DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
 	private static String writepath = System.getProperty("user.dir") ;
 
+	/**
+	 * Write the quiz output into the existing directory
+	 * @param message
+	 * @throws IOException
+	 */
 	public static void write(String message) throws IOException {
 		String nowString = now.format(dateTimeFormatter);
 		String filename = writepath + "//Results"+nowString+".txt";
@@ -37,6 +42,11 @@ public class FileOperations {
 		fileWriter.close();
 	}
 
+	/**
+	 * Read the config parameters from the config.properties file
+	 * @return
+	 * @throws IOException
+	 */
 	public static boolean readConfig() throws IOException {
 		InputStream stream = new FileInputStream("src/config.properties");
 		Properties property = new Properties();

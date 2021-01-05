@@ -79,7 +79,6 @@ public class InitializeGUI extends Application {
 			window.setScene(quiz);
 		} else if (event.equals("score")) {
 			score++;
-			System.out.println("SCORE is"+score);
 		} else if (event.equals("finish")) {
 			marks = QuizGUI.displayResult(score);
 			window.setScene(marks);

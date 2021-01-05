@@ -4,13 +4,27 @@ import java.sql.SQLException;
 
 import dao.StudentDAO;
 
+/**
+ * @author Subaandh
+ *
+ */
+
 public class AuthenticationService {
-	
+
 	private static final String ADMIN_USER = "admin";
 	private static final String ADMIN_PWD = "admin";
 
+	/**
+	 * Authenticate the user based on whether he is a student or a admin
+	 * 
+	 * @param username
+	 * @param password
+	 * @param user
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean authenticate(String username, String password, String user) throws SQLException {
-		
+
 		if (user.equals("STUDENT")) {
 			StudentDAO sdao = new StudentDAO();
 			if (!sdao.authenticationSearch(username, password))
@@ -21,7 +35,7 @@ public class AuthenticationService {
 		} else {
 			return false;
 		}
-		
+
 		System.out.println("Successfully authenticated");
 		return true;
 	}

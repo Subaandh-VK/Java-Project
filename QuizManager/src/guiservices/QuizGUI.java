@@ -28,7 +28,7 @@ public class QuizGUI {
 
 		VBox root = new VBox(20);
 		root.getChildren().add(res);
-		Scene scene = new Scene(root, 300, 300);
+		Scene scene = new Scene(root, 500, 500);
 
 		return scene;
 
@@ -39,10 +39,8 @@ public class QuizGUI {
 		ArrayList<OpenQuestions> openlist = new ArrayList<>();
 		Button finish = new Button("Finish Test");
 		Quiz quiz = student.getQuiz();
-
-		System.out.println("QUIZ LENGTH " + quiz.getQuestions().size());
+				
 		for (Questions q : quiz.getQuestions()) {
-			System.out.println("QUESTION AND TYPE" + q.getQuestions() + q.getType());
 			if (q.getType().equalsIgnoreCase("mcq") && q.getChoices() != null) {
 				MCQquestion mcq = new MCQquestion();
 				ArrayList<RadioButton> radios = new ArrayList<>();
@@ -88,7 +86,6 @@ public class QuizGUI {
 				// Adding everything to the object
 				mcqlist.add(mcq);
 			} else {
-				System.out.println("IN ELSE PART");
 				OpenQuestions open = new OpenQuestions();
 
 				Label qn = new Label(q.getQuestions());
@@ -136,7 +133,6 @@ public class QuizGUI {
 		}
 
 		for (OpenQuestions o : openlist) {
-			System.out.println("OPENLIST ITERATING");
 			root.getChildren().add(o.getQuestion());
 			root.getChildren().add(o.getResponse());
 			root.getChildren().add(o.getButton());
@@ -157,7 +153,7 @@ public class QuizGUI {
 		scroll.setContent(root);
 		scroll.setPannable(true);
 
-		Scene scene = new Scene(scroll, 300, 300);
+		Scene scene = new Scene(scroll, 500, 500);
 
 		return scene;
 	}

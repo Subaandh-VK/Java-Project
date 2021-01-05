@@ -16,15 +16,13 @@ import services.AuthenticationService;
 import services.QuestionServices;
 import services.QuizServices;
 import services.StudentServices;
+import services.TestServices;
 
 public class Launcher {
 
 	public static void main(String[] args) throws SQLException {
 		Scanner in = new Scanner(System.in);
 
-		QuestionsDAO qdao = new QuestionsDAO();
-		StudentDAO sdao = new StudentDAO();
-		
 		try {
 			if (!FileOperations.readConfig()) {
 				System.out.println("Please give details in the config.properties file");
@@ -35,15 +33,14 @@ public class Launcher {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		System.out.println("Database Path and Credentials: "+ QuestionsDAO.getConnectionPath()+" "+ QuestionsDAO.getConnectionUser()+
-				" "+QuestionsDAO.getConnectionPass());
+		System.out.println("Database Path and Credentials: " + QuestionsDAO.getConnectionPath() + " "
+				+ QuestionsDAO.getConnectionUser() + " " + QuestionsDAO.getConnectionPass());
 		System.out.println("Result Writepath: " + FileOperations.getWritepath());
-		
-		
-		while (true) {
-			System.out.println("\n\n**********Welcome to Quiz Manager************");
-			System.out.println("PRESS 1.To Login as Student \n2.To Login as Admin \n3.To Exit");
 
+		while (true) {
+			System.out.println("\n\t\t**********Welcome to Quiz Manager************\n");
+			System.out.println(
+					"Enter 1.To Login as Student(Attend Quiz) \nEnter 2.To Login as Admin(Manage Quiz/Test functionality) \nEnter 3.To Exit");
 
 			int choice = 0;
 			String username = null, password = null, user = null;
@@ -55,7 +52,7 @@ public class Launcher {
 			}
 
 			if (choice == 1 || choice == 2) {
-				System.out.println("Enter UserName and Password");
+				System.out.println("Enter UserName and Password:");
 				username = in.nextLine();
 				password = in.nextLine();
 
@@ -70,16 +67,19 @@ public class Launcher {
 			}
 
 			AuthenticationService auth = new AuthenticationService();
-			
+
 			// Authentication module
 			if (!auth.authenticate(username, password, user)) {
 				System.out.println("Invalid credentials");
 				continue;
 			}
 
+			QuestionsDAO qdao = new QuestionsDAO();
+			StudentDAO sdao = new StudentDAO();
+
 			if (user.equals("ADMIN")) {
-				System.out.println("PRESS \n1.To perform CRUD operations on Questions \n2.To perform CRUD operations on Student details");
-				
+				System.out.println("\n1.To perform CRUD operations on Questions \n2.To perform CRUD operations on Student details\n3.Test Functionality");
+
 				choice = 0;
 				choice = in.nextInt();
 				in.nextLine();
@@ -93,7 +93,7 @@ public class Launcher {
 							QuestionServices.addQuestion(qdao);
 						else
 							StudentServices.addStudent(sdao);
-						
+
 						break;
 					case 2: // Read/Search operations
 						if (choice == 1)
@@ -114,33 +114,34 @@ public class Launcher {
 							StudentServices.deleteStudent(sdao);
 						break;
 					}
+				} else if (choice == 3) {
+						TestServices.runTests(qdao, sdao);
 				}
 			} else {
 				Student student = StudentServices.getStudentDetails(sdao, username);
 				IamLog log = new IamLog("");
 
-				System.out.println("******Welcome "+student.getName()+"*********");
-				
+				System.out.println("******Welcome " + student.getName() + "*********");
+
 				TreeSet<String> topics = QuizServices.getTopics(qdao);
 				System.out.println("** Availabe Topics **");
 				for (String topic : topics)
 					System.out.println(topic);
-				
+
 				String usertopic = QuizServices.checkTopic(topics);
 				if (usertopic == null) {
 					System.out.println("Invalid Topic");
 					continue;
 				}
-				
+
 				int difficulty = QuizServices.checkDifficulty();
 				Quiz quiz = QuizServices.buildQuiz(qdao, usertopic, difficulty);
 
 				student.setQuiz(quiz);
 				QuizServices.startQuiz(student, log);
-				log.save("Quiz Ended Your Score is: "+student.getQuiz().getScore());
+				log.save("Quiz Ended Your Score is: " + student.getQuiz().getScore());
 			}
 		}
 		in.close();
 	}
 }
-	

@@ -14,6 +14,13 @@ public class StudentDAO {
 	public static String connectionUsername;
 	public static String connectionPassword;
 
+	/**
+	 * Create a student entry in the database
+	 * 
+	 * @param student
+	 * @return
+	 * @throws SQLException
+	 */
 	public int create(Student student) throws SQLException {
 		Connection connection;
 		String query;
@@ -36,6 +43,16 @@ public class StudentDAO {
 		return ret;
 	}
 
+	/**
+	 * Search for a student in the database based on the below parameters if nothing
+	 * is given it returns all the students
+	 * 
+	 * @param username
+	 * @param name
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public ArrayList<Student> search(String username, String name, int id) throws SQLException {
 		ArrayList<Student> studentList = new ArrayList<>();
 		Connection connection;
@@ -101,6 +118,14 @@ public class StudentDAO {
 		return studentList;
 	}
 
+	/**
+	 * This is a call used to verify student credentials when logging in.
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws SQLException
+	 */
 	public boolean authenticationSearch(String username, String password) throws SQLException {
 		boolean found = false;
 		Connection connection;
@@ -127,6 +152,13 @@ public class StudentDAO {
 		return found;
 	}
 
+	/**
+	 * Update the student details based on admin/user input
+	 * 
+	 * @param student
+	 * @return
+	 * @throws SQLException
+	 */
 	public int update(Student student) throws SQLException {
 		Connection connection;
 		String query;
@@ -150,12 +182,19 @@ public class StudentDAO {
 		return ret;
 	}
 
+	/**
+	 * Delete a student record from the database
+	 * 
+	 * @param student
+	 * @return
+	 * @throws SQLException
+	 */
 	public int delete(Student student) throws SQLException {
 		Connection connection;
 		String query;
 		int ret = 0;
 
-		connection = DriverManager.getConnection(this.connectionPath, this.connectionUsername, this.connectionPassword);
+		connection = DriverManager.getConnection(connectionPath, connectionUsername, connectionPassword);
 		query = "DELETE FROM public.\"STUDENT\" WHERE id = ?";
 
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
@@ -167,6 +206,7 @@ public class StudentDAO {
 		connection.close();
 		return ret;
 	}
+
 	public static String getConnectionPath() {
 		return connectionPath;
 	}

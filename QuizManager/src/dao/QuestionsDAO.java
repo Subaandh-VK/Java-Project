@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
-
 import datamodel.Questions;
 
 public class QuestionsDAO {
@@ -17,6 +16,13 @@ public class QuestionsDAO {
 	public static String connectionUser;
 	public static String connectionPass;
 
+	/**
+	 * Create a question and add it in the database
+	 * 
+	 * @param question
+	 * @return
+	 * @throws SQLException
+	 */
 	public int create(Questions question) throws SQLException {
 		Connection connection;
 		String query;
@@ -41,7 +47,7 @@ public class QuestionsDAO {
 
 		ret = prepareStatement.executeUpdate();
 		connection.close();
-		
+
 		return ret;
 	}
 
@@ -126,11 +132,18 @@ public class QuestionsDAO {
 		return questionList;
 	}
 
+	/**
+	 * Update the selected question in the database based on the input given
+	 * 
+	 * @param question
+	 * @return
+	 * @throws SQLException
+	 */
 	public int update(Questions question) throws SQLException {
 		Connection connection;
 		String query;
 		int ret, updateFields = 0;
-		
+
 		connection = DriverManager.getConnection(connectionPath, connectionUser, connectionPass);
 		query = "UPDATE public.\"QUESTIONS\"";
 
@@ -156,7 +169,7 @@ public class QuestionsDAO {
 				updateFields++;
 			}
 		}
-		
+
 		if (question.getQuestions() != null) {
 			if (updateFields == 0) {
 				query += " SET question = ?";
@@ -185,7 +198,6 @@ public class QuestionsDAO {
 			}
 		}
 
-
 		query += " WHERE id = ?";
 		PreparedStatement prepareStatement = connection.prepareStatement(query);
 		prepareStatement.setInt(updateFields + 1, question.getId());
@@ -197,15 +209,15 @@ public class QuestionsDAO {
 			} else {
 				prepareStatement.setArray(updateFields, null);
 			}
-			
+
 			updateFields--;
 		}
-		
+
 		if (question.getAnswer() != null) {
 			prepareStatement.setString(updateFields, question.getAnswer());
 			updateFields--;
 		}
-		
+
 		if (question.getQuestions() != null) {
 			prepareStatement.setString(updateFields, question.getQuestions());
 			updateFields--;
@@ -225,16 +237,23 @@ public class QuestionsDAO {
 		}
 
 		ret = prepareStatement.executeUpdate();
-		
+
 		connection.close();
 		return ret;
 	}
 
+	/**
+	 * Delete a question from the database based on the id
+	 * 
+	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
 	public int delete(int id) throws SQLException {
 		Connection connection;
 		String query;
 		int ret;
-		
+
 		connection = DriverManager.getConnection(connectionPath, connectionUser, connectionPass);
 		query = "DELETE FROM public.\"QUESTIONS\" WHERE id = ?";
 
@@ -242,16 +261,22 @@ public class QuestionsDAO {
 		prepareStatement.setInt(1, id);
 
 		ret = prepareStatement.executeUpdate();
-		
+
 		connection.close();
 		return ret;
 	}
 
+	/**
+	 * Returns the list of unique topics as a TreeSet to display it to the student
+	 * 
+	 * @return
+	 * @throws SQLException
+	 */
 	public TreeSet<String> getTopics() throws SQLException {
-		TreeSet <String> topics = new TreeSet<>();
+		TreeSet<String> topics = new TreeSet<>();
 		Connection connection;
 		String query;
-		
+
 		connection = DriverManager.getConnection(connectionPath, connectionUser, connectionPass);
 		query = "select * from \"QUESTIONS\"";
 
@@ -261,7 +286,7 @@ public class QuestionsDAO {
 		while (results.next()) {
 			topics.add(results.getString("topic"));
 		}
-		
+
 		connection.close();
 		return topics;
 	}
