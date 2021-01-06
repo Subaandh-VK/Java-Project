@@ -4,6 +4,8 @@
 1. Student - Signin and take quizzes
 2. Admin - Create/Read/Update/Delete Student details and Questions. Perform Tests.
 
+# Note
+ Please make sure the config.properties filepath is properly given in Quizmanager/src/logging/FileOperations.java line 51. To read the configuration
 # Login values
 Postgresql Database user: postgres password:123
 
