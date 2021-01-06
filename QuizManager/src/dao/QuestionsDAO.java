@@ -19,9 +19,9 @@ public class QuestionsDAO {
 	/**
 	 * Create a question and add it in the database
 	 * 
-	 * @param question
-	 * @return
-	 * @throws SQLException
+	 * @param question object which contains values to be created
+	 * @return status of execute query
+	 * @throws SQLException handles SQL exception
 	 */
 	public int create(Questions question) throws SQLException {
 		Connection connection;
@@ -51,6 +51,13 @@ public class QuestionsDAO {
 		return ret;
 	}
 
+	/**
+	 * @param topic The topic to be searched
+	 * @param difficulty the difficulty level of the questions
+	 * @param type the type of question like MCQ or open
+	 * @return status of execute query
+	 * @throws SQLException handles sql exception
+	 */
 	public ArrayList<Questions> search(String topic, int difficulty, String type) throws SQLException {
 		ArrayList<Questions> questionList = new ArrayList<>();
 		Connection connection;
@@ -135,9 +142,9 @@ public class QuestionsDAO {
 	/**
 	 * Update the selected question in the database based on the input given
 	 * 
-	 * @param question
-	 * @return
-	 * @throws SQLException
+	 * @param question the question object to be updated
+	 * @return status of execute query
+	 * @throws SQLException handle sql exception
 	 */
 	public int update(Questions question) throws SQLException {
 		Connection connection;
@@ -245,9 +252,9 @@ public class QuestionsDAO {
 	/**
 	 * Delete a question from the database based on the id
 	 * 
-	 * @param id
-	 * @return
-	 * @throws SQLException
+	 * @param id the question id to delete
+	 * @return status of execute query
+	 * @throws SQLException handle exception
 	 */
 	public int delete(int id) throws SQLException {
 		Connection connection;
@@ -269,8 +276,8 @@ public class QuestionsDAO {
 	/**
 	 * Returns the list of unique topics as a TreeSet to display it to the student
 	 * 
-	 * @return
-	 * @throws SQLException
+	 * @return treeset of topics
+	 * @throws SQLException handles exception 
 	 */
 	public TreeSet<String> getTopics() throws SQLException {
 		TreeSet<String> topics = new TreeSet<>();

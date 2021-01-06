@@ -13,7 +13,7 @@ public class QuestionServices {
 	/**
 	 * Get inputs from the admin and validate it before adding it into the database
 	 * 
-	 * @param qdao
+	 * @param qdao The DAO object
 	 * @throws SQLException
 	 */
 	public static void addQuestion(QuestionsDAO qdao) throws SQLException {
@@ -56,8 +56,8 @@ public class QuestionServices {
 	/**
 	 * Get inputs from the admin to do a search
 	 * 
-	 * @param qdao
-	 * @throws SQLException
+	 * @param qdao The DAO object
+	 * @throws SQLException handles exception
 	 */
 	public static void searchQuestion(QuestionsDAO qdao) throws SQLException {
 		in = new Scanner(System.in);
@@ -95,8 +95,8 @@ public class QuestionServices {
 	/**
 	 * Get update parameters from the admin to update it
 	 * 
-	 * @param qdao
-	 * @throws SQLException
+	 * @param qdao The DAO object 
+	 * @throws SQLException handles exception
 	 */
 	public static void updateQuestion(QuestionsDAO qdao) throws SQLException {
 		in = new Scanner(System.in);
@@ -175,8 +175,8 @@ public class QuestionServices {
 	/**
 	 * Get the ID from the user to delete it from Database
 	 * 
-	 * @param qdao
-	 * @throws SQLException
+	 * @param qdao The DAO object
+	 * @throws SQLException handles exception
 	 */
 	public static void deleteQuestion(QuestionsDAO qdao) throws SQLException {
 		in = new Scanner(System.in);

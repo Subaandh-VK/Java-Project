@@ -17,11 +17,11 @@ public class AuthenticationService {
 	/**
 	 * Authenticate the user based on whether he is a student or a admin
 	 * 
-	 * @param username
-	 * @param password
-	 * @param user
-	 * @return
-	 * @throws SQLException
+	 * @param username The entered username by user
+	 * @param password The entered password by user
+	 * @param user The type of user
+	 * @return status of authentication true/false
+	 * @throws SQLException handles exception
 	 */
 	public boolean authenticate(String username, String password, String user) throws SQLException {
 

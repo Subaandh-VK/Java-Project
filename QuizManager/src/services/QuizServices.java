@@ -18,8 +18,8 @@ public class QuizServices {
 	 * Student enters the topic and the function checks whether the selected topic
 	 * is valid or not
 	 * 
-	 * @param topics
-	 * @return
+	 * @param topics The entered topic by user
+	 * @return True if topic is valid else false
 	 */
 	public static String checkTopic(TreeSet<String> topics) {
 		System.out.println("Select a topic");
@@ -37,7 +37,7 @@ public class QuizServices {
 	/**
 	 * To check if entered difficult is available
 	 * 
-	 * @return
+	 * @return Return the selected difficulty by user
 	 */
 	public static int checkDifficulty() {
 		int difficulty = 0;
@@ -61,11 +61,11 @@ public class QuizServices {
 	/**
 	 * Build a quiz based on the input provided by the student
 	 * 
-	 * @param qdao
-	 * @param topic
-	 * @param difficulty
-	 * @return
-	 * @throws SQLException
+	 * @param qdao The DAO object
+	 * @param topic Selected topic
+	 * @param difficulty Selected difficulty
+	 * @return Quiz object is returned
+	 * @throws SQLException handles exception
 	 */
 	public static Quiz buildQuiz(QuestionsDAO qdao, String topic, int difficulty) throws SQLException {
 		Quiz quiz = new Quiz();
@@ -79,9 +79,9 @@ public class QuizServices {
 	/**
 	 * Displays the questions and verifies the answers
 	 * 
-	 * @param student
-	 * @param log
-	 * @return
+	 * @param student The Student object with all parameters updated
+	 * @param log To save the quiz to a file
+	 * @return The score of the student
 	 */
 	public static int startQuiz(Student student, IamLog log) {
 		Quiz quiz = student.getQuiz();
@@ -115,9 +115,9 @@ public class QuizServices {
 	/**
 	 * Get available topic to display it to the user.
 	 * 
-	 * @param qdao
-	 * @return
-	 * @throws SQLException
+	 * @param qdao The DAO object
+	 * @return The Set of topics
+	 * @throws SQLException handles exception
 	 */
 	public static TreeSet<String> getTopics(QuestionsDAO qdao) throws SQLException {
 		return qdao.getTopics();

@@ -18,8 +18,8 @@ public class StudentServices {
 	/**
 	 * Get input and validate to create a student.
 	 * 
-	 * @param sdao
-	 * @throws SQLException
+	 * @param sdao The DAO object
+	 * @throws SQLException handles exception
 	 */
 	public static void addStudent(StudentDAO sdao) throws SQLException {
 		in = new Scanner(System.in);
@@ -59,8 +59,8 @@ public class StudentServices {
 	/**
 	 * Read and validate search parameters for student database
 	 * 
-	 * @param sdao
-	 * @throws SQLException
+	 * @param sdao The DAO object
+	 * @throws SQLException handles exception
 	 */
 	public static void searchStudent(StudentDAO sdao) throws SQLException {
 		in = new Scanner(System.in);
@@ -98,10 +98,10 @@ public class StudentServices {
 	/**
 	 * Returns the student details after logging in
 	 * 
-	 * @param sdao
-	 * @param username
-	 * @return
-	 * @throws SQLException
+	 * @param sdao The DAO object
+	 * @param username The username
+	 * @return Returns student object
+	 * @throws SQLException handles exception
 	 */
 	public static Student getStudentDetails(StudentDAO sdao, String username) throws SQLException {
 
@@ -113,8 +113,8 @@ public class StudentServices {
 	/**
 	 * Read and validate the parameters to search a student
 	 * 
-	 * @param sdao
-	 * @throws SQLException
+	 * @param sdao The DAO object
+	 * @throws SQLException handles exception
 	 */
 	public static void updateStudent(StudentDAO sdao) throws SQLException {
 		in = new Scanner(System.in);
@@ -183,8 +183,8 @@ public class StudentServices {
 	/**
 	 * Get id of the student to be deleted
 	 * 
-	 * @param sdao
-	 * @throws SQLException
+	 * @param sdao The DAO object
+	 * @throws SQLException handles exception
 	 */
 	public static void deleteStudent(StudentDAO sdao) throws SQLException {
 		in = new Scanner(System.in);

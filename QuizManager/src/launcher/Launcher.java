@@ -30,7 +30,6 @@ public class Launcher {
 				System.exit(0);
 			}
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		System.out.println("Database Path and Credentials: " + QuestionsDAO.getConnectionPath() + " "
@@ -38,7 +37,7 @@ public class Launcher {
 		System.out.println("Result Writepath: " + FileOperations.getWritepath());
 
 		while (true) {
-			System.out.println("\n\t\t**********Welcome to Quiz Manager************\n");
+			System.out.println("\n\t\t***********Welcome to Quiz Manager*************\n");
 			System.out.println(
 					"Enter 1.To Login as Student(Attend Quiz) \nEnter 2.To Login as Admin(Manage Quiz/Test functionality) \nEnter 3.To Exit");
 

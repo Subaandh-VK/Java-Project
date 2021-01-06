@@ -17,9 +17,9 @@ public class StudentDAO {
 	/**
 	 * Create a student entry in the database
 	 * 
-	 * @param student
-	 * @return
-	 * @throws SQLException
+	 * @param student The student object with filled values
+	 * @return status of execute query
+	 * @throws SQLException handle exception
 	 */
 	public int create(Student student) throws SQLException {
 		Connection connection;
@@ -47,11 +47,11 @@ public class StudentDAO {
 	 * Search for a student in the database based on the below parameters if nothing
 	 * is given it returns all the students
 	 * 
-	 * @param username
-	 * @param name
-	 * @param id
-	 * @return
-	 * @throws SQLException
+	 * @param username username of student
+	 * @param name name of the student
+	 * @param id id of the student
+	 * @return return the student based on search
+	 * @throws SQLException handle exception
 	 */
 	public ArrayList<Student> search(String username, String name, int id) throws SQLException {
 		ArrayList<Student> studentList = new ArrayList<>();
@@ -121,10 +121,10 @@ public class StudentDAO {
 	/**
 	 * This is a call used to verify student credentials when logging in.
 	 * 
-	 * @param username
-	 * @param password
-	 * @return
-	 * @throws SQLException
+	 * @param username username of student
+	 * @param password password of student
+	 * @return status of authentication
+	 * @throws SQLException handles exception
 	 */
 	public boolean authenticationSearch(String username, String password) throws SQLException {
 		boolean found = false;
@@ -155,9 +155,9 @@ public class StudentDAO {
 	/**
 	 * Update the student details based on admin/user input
 	 * 
-	 * @param student
-	 * @return
-	 * @throws SQLException
+	 * @param student Student object to be updated
+	 * @return status of execute query
+	 * @throws SQLException handles exception
 	 */
 	public int update(Student student) throws SQLException {
 		Connection connection;
