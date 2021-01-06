@@ -180,9 +180,9 @@ public class QuizGUI {
 				result.setText("Difficulty Selected");
 				System.out.println("DIFFICULTY - Success");
 				try {
-					if (value.getText().equals("hard")) {
+					if (value.getText().equalsIgnoreCase("hard")) {
 						InitializeGUI.switchScenes("difficulty", "3");
-					} else if (value.getText().equals("medium")) {
+					} else if (value.getText().equalsIgnoreCase("medium")) {
 						InitializeGUI.switchScenes("difficulty", "2");
 					} else {
 						InitializeGUI.switchScenes("difficulty", "1");
