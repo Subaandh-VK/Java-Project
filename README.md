@@ -9,7 +9,7 @@
 # Login values
 Postgresql Database user: postgres password:123
 
-Student username: subaandh password: 123 (New students can be Created/Read/Updated/Deleted from the database)
+Student username:New students can be Created/Read/Updated/Deleted from the database
 
 Admin username: admin password: 123
 
